@@ -81,3 +81,68 @@ void delete_list(AddressBook **list)
 	}
 }
 
+void insert_to_list(AddressBook **list, AddressBook *address, int *index)
+{
+	AddressBook *temp = *list;
+	if (*index <= 1) {
+		address->next = *list;
+		*list = address;
+		return;
+	}
+	else if (*index > list_length(temp)){
+		while (temp->next != NULL){
+			temp = temp->next;
+		}
+		temp->next = address;
+	}
+	else {	
+		for (int i = 1; i < *index - 1; i++) {
+			temp = temp->next;
+		}
+		address->next = temp->next;
+		temp->next = address;
+	}
+}
+
+void delete_address(AddressBook **list, int *index) {
+	AddressBook *temp = *list;
+	if (!(*index > 0 && *index <= list_length(*list))) {
+		return;
+	}
+	if (*index == 1) {
+		*list = temp->next;
+		free(temp);
+		return;
+	}
+	else if (*index > 1 && *index < list_length(*list)){
+		for (int i = 1; i < *index -1; i++) {
+			if (temp->next != NULL) {
+				temp = temp->next;
+			}
+		}
+		AddressBook *toDelete = temp->next;
+		temp->next = temp->next->next;
+		free(toDelete);
+		return;
+	}
+	else if (*index == list_length(*list)){
+		while (temp->next->next != NULL) {
+			temp = temp->next;
+		}
+		free(temp->next);
+		temp->next = NULL;
+		return ;
+	}
+}
+
+int list_length(AddressBook *list)
+{
+	AddressBook *temp = list;
+	int count = 0;
+	while(temp != NULL){
+		temp = temp->next;
+		count++;
+	}
+	
+	return count;
+}

@@ -34,6 +34,35 @@ int main(void)
 	printf("po delete");
 	print_list(list);
 	*/
+	
+	/*
+	char insert_line[50];
+	printf("Insert new address in desired place\n");
+	printf("Type [name,surname,email,number]:\n");
+	scanf("%[^\n]%*c", insert_line);
+	printf("Enter desired place: \n");
+	int place_to_insert;
+	scanf("%d", &place_to_insert);
 
+	AddressBook *new_address_to_insert = create_address_node(insert_line);
+
+	insert_to_list(&list, new_address_to_insert, &place_to_insert);
+	printf("Updated list:\n");	
+	print_list(list);
+	
+	int length = list_length(list);
+	printf("%d is the length of the list", length);
+	*/
+
+	int length = list_length(list);
+	printf("%d\n", length);
+	if (length > 0) {
+		int place_to_delete;
+		printf("Enter which address to delete [1 - %d]\n", length);	
+		scanf("%d", &place_to_delete);
+		delete_address(&list, &place_to_delete);
+		print_list(list);
+	}
+	
 	return 0;
 }
