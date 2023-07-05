@@ -54,6 +54,7 @@ int main(void)
 	printf("%d is the length of the list", length);
 	*/
 
+	/*
 	int length = list_length(list);
 	printf("%d\n", length);
 	if (length > 0) {
@@ -63,6 +64,19 @@ int main(void)
 		delete_address(&list, &place_to_delete);
 		print_list(list);
 	}
-	
+	*/
+
+		
+	int length = list_length(list);
+	int address_to_find;
+	printf("Enter position [1 - %d]: \n", length);
+	scanf("%d", &address_to_find);
+	if (address_to_find > 0 && address_to_find <= length) {
+		AddressBook *found_address = find_address(&list, &address_to_find);
+		printf("Found address: %s %s %s %s\n", found_address->name, found_address->surname, found_address->email, found_address->number);
+	}
+	else {
+		printf("Invalid position\n");
+	}
 	return 0;
 }

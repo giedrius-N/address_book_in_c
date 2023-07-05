@@ -135,6 +135,19 @@ void delete_address(AddressBook **list, int *index) {
 	}
 }
 
+AddressBook *find_address(AddressBook **list, int *index)
+{
+	AddressBook *temp = *list;
+	for (int i = 1; i < *index; i++) {
+		temp = temp->next;
+	}
+	AddressBook *address = temp;
+	return address;
+
+	printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
+
+}
+
 int list_length(AddressBook *list)
 {
 	AddressBook *temp = list;
