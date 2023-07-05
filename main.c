@@ -5,10 +5,12 @@
 
 int main(void) 
 {
-	char address_file_path[30] = "addresses.csv";
+	char address_file_path[30];
+	strcpy(address_file_path, getenv("HOME"));
+	strcat(address_file_path, "/addresses.csv");
 	AddressBook *list = NULL;
 	FILE *address_file = NULL;
-
+	
 	address_file = fopen(address_file_path, "r");
 
 	if (address_file == NULL) {
@@ -27,10 +29,11 @@ int main(void)
 	add_to_list(&list, new_address);
 	print_list(list);
 	*/
-
+	/* 
 	delete_list(&list);
 	printf("po delete");
 	print_list(list);
+	*/
 
 	return 0;
 }
