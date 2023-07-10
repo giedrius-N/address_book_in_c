@@ -107,34 +107,36 @@ void insert_to_list(AddressBook **list, AddressBook *address, int *index)
 }
 
 void delete_address(AddressBook **list, int *index) {
-	AddressBook *temp = *list;
-	if (!(*index > 0 && *index <= list_length(*list))) {
-		return;
-	}
-	if (*index == 1) {
-		*list = temp->next;
-		free(temp);
-		return;
-	}
-	else if (*index > 1 && *index < list_length(*list)){
-		for (int i = 1; i < *index -1; i++) {
-			if (temp->next != NULL) {
-				temp = temp->next;
-			}
-		}
-		AddressBook *toDelete = temp->next;
-		temp->next = temp->next->next;
-		free(toDelete);
-		return;
-	}
-	else if (*index == list_length(*list)){
-		while (temp->next->next != NULL) {
-			temp = temp->next;
-		}
-		free(temp->next);
-		temp->next = NULL;
-		return ;
-	}
+    AddressBook *temp = *list;
+    if (!(*index > 0 && *index <= list_length(*list))) {
+        return;
+    }
+    if (*index == 1) {
+        AddressBook *toDelete = *list;
+        *list = (*list)->next;
+        free(toDelete);
+        return;
+    }
+    else if (*index > 1 && *index < list_length(*list)) {
+        for (int i = 1; i < *index - 1; i++) {
+            if (temp->next != NULL) {
+                temp = temp->next;
+            }
+        }
+        AddressBook *toDelete = temp->next;
+        temp->next = temp->next->next;
+        free(toDelete);
+        return;
+    }
+    else if (*index == list_length(*list)) {
+        while (temp->next->next != NULL) {
+            temp = temp->next;
+        }
+        AddressBook *toDelete = temp->next;
+        temp->next = NULL;
+        free(toDelete);
+        return;
+    }
 }
 
 AddressBook *find_address_by_index(AddressBook **list, int *index)
