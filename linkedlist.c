@@ -66,8 +66,11 @@ void print_list(AddressBook *list)
 {
 	AddressBook *temp = list;
 
-//	if (temp == NULL) return;
-	
+	if (temp == NULL) {
+		printf("\nThe address book is empty\n");
+		return;
+	}	
+
 	int i = 1;
 	while (temp != NULL) {
 		printf("[%d] %s %s %s %s\n",i ,temp->name, temp->surname, temp->email, temp->number);
@@ -86,7 +89,7 @@ void delete_list(AddressBook **list)
 	}
 }
 
-void insert_to_list(AddressBook **list, AddressBook *address, int *index)
+void insert_to_list(AddressBook **list, AddressBook *address, const int *index)
 {
 	AddressBook *temp = *list;
 	if (*index <= 1) {
@@ -109,7 +112,7 @@ void insert_to_list(AddressBook **list, AddressBook *address, int *index)
 	}
 }
 
-void delete_address(AddressBook **list, int *index) {
+void delete_address(AddressBook **list, const int *index) {
     AddressBook *temp = *list;
     if (!(*index > 0 && *index <= list_length(*list))) {
         return;
@@ -142,7 +145,7 @@ void delete_address(AddressBook **list, int *index) {
     }
 }
 
-AddressBook *find_address_by_index(AddressBook **list, int *index)
+AddressBook *find_address_by_index(AddressBook **list, const int *index)
 {
 	AddressBook *temp = *list;
 	for (int i = 1; i < *index; i++) {
@@ -155,7 +158,7 @@ AddressBook *find_address_by_index(AddressBook **list, int *index)
 
 }
 
-AddressBook *find_address_by_name(AddressBook **list, char *name)
+AddressBook *find_address_by_name(AddressBook **list, const char *name)
 {
 	AddressBook *temp = *list;
 	while (temp != NULL) {
@@ -167,7 +170,7 @@ AddressBook *find_address_by_name(AddressBook **list, char *name)
 	return NULL;
 }
 
-AddressBook *find_address_by_surname(AddressBook **list, char *surname)
+AddressBook *find_address_by_surname(AddressBook **list, const char *surname)
 {
 	AddressBook *temp = *list;
         while (temp != NULL) {
@@ -179,7 +182,7 @@ AddressBook *find_address_by_surname(AddressBook **list, char *surname)
         return NULL;
 }
 
-AddressBook *find_address_by_email(AddressBook **list, char *email)
+AddressBook *find_address_by_email(AddressBook **list, const char *email)
 {
 	AddressBook *temp = *list;
         while (temp != NULL) {
@@ -191,7 +194,7 @@ AddressBook *find_address_by_email(AddressBook **list, char *email)
         return NULL;
 }
 
-AddressBook *find_address_by_phone_number(AddressBook **list, char *number)
+AddressBook *find_address_by_phone_number(AddressBook **list, const char *number)
 {
         AddressBook *temp = *list;
         while (temp != NULL) {

@@ -13,14 +13,14 @@ int main(void)
 {
 	char address_file_path[30];
 	strcpy(address_file_path, getenv("HOME"));
-	strcat(address_file_path, "/aaddresses.csv");
+	strcat(address_file_path, "/addresses.csv");
 	AddressBook *list = NULL;
 	FILE *address_file = NULL;
 	
 	address_file = fopen(address_file_path, "r");
 
 	if (address_file == NULL) {
-		printf("File not found\n");
+		printf("\naddresses.csv file not found\n");
 	}
 	else {
 		load_addresses(address_file, &list);	
@@ -41,7 +41,7 @@ int main(void)
 		printf("[7] Find address by name, surname, email or phone number\n");
 		printf("[0] Quit\n");
 
-		scanf(" %s", input);
+		scanf(" %49s", input);
 
 		if (strlen(input) > 1) {
 			printf("\nInvalid selection!\n");
@@ -83,23 +83,12 @@ int main(void)
 	
 	return 0;
 }
-/*
-void add_new_address_to_address_book(AddressBook *list)
-{
-	printf("Add new address, information should be in one line and separated by , [name,surname,email,number] :\n");
-        char new_line[50];
-        scanf(" %[^\n]%*c", new_line);
-        
-        AddressBook *new_address = create_address_node(new_line);       
-        add_to_list(&list, new_address);
 
-}
-*/
 void add_new_address_to_address_book(AddressBook **list)
 {
 	printf("Add new address, information should be in one line and separated by commas [name,surname,email,number]:\n");
     char new_line[50];
-    scanf(" %[^\n]%*c", new_line);
+    scanf(" %49[^\n]%*c", new_line);
         
     AddressBook *new_address = create_address_node(new_line);
     if (new_address != NULL) {
@@ -116,7 +105,7 @@ void insert_new_address(AddressBook *list)
 	char insert_line[50];
         printf("Insert new address in desired place\n");
         printf("Type [name,surname,email,number]:\n");
-        scanf(" %[^\n]%*c", insert_line);
+        scanf(" %49[^\n]%*c", insert_line);
         printf("Enter desired place: \n");
         int place_to_insert;
         scanf("%d", &place_to_insert);
@@ -162,7 +151,7 @@ void search_by_criteria(AddressBook *list)
 		case 1:
 			printf("Enter Name:\n");
 			char name[15];
-			scanf(" %[^\n]%*c", name);
+			scanf(" %14[^\n]%*c", name);
 			AddressBook *found_by_name = find_address_by_name(&list, name);
 			if (found_by_name != NULL) {
 			printf("Found address: %s %s %s %s\n", found_by_name->name, found_by_name->surname, found_by_name->email, found_by_name->number);
@@ -174,7 +163,7 @@ void search_by_criteria(AddressBook *list)
 		case 2:
 			printf("Enter Surname:\n");
 			char surname[15];
-                        scanf(" %[^\n]%*c", surname);
+                        scanf(" %14[^\n]%*c", surname);
 			AddressBook *found_by_surname = find_address_by_surname(&list, surname);
 			if (found_by_surname != NULL) {
                         printf("Found address: %s %s %s %s\n", found_by_surname->name, found_by_surname->surname, found_by_surname->email, found_by_surname->number);
@@ -186,7 +175,7 @@ void search_by_criteria(AddressBook *list)
 		case 3:
 			printf("Enter Email:\n");
 			char email[20];
-                        scanf(" %[^\n]%*c", email);
+                        scanf(" %19[^\n]%*c", email);
 			AddressBook *found_by_email = find_address_by_email(&list, email);
                         if (found_by_email != NULL) {
                         printf("Found address: %s %s %s %s\n", found_by_email->name, found_by_email->surname, found_by_email->email, found_by_email->number);
@@ -199,7 +188,7 @@ void search_by_criteria(AddressBook *list)
 		case 4:
 			printf("Enter Phone number\n");
 			char phNumber[15];
-			scanf(" %[^\n]%*c", phNumber);
+			scanf(" %14[^\n]%*c", phNumber);
 			AddressBook *found_by_number = find_address_by_phone_number(&list, phNumber);
                         if (found_by_number != NULL) {
                         printf("Found address: %s %s %s %s\n", found_by_number->name, found_by_number->surname, found_by_number->email, found_by_number->number);

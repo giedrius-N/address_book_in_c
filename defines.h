@@ -16,13 +16,13 @@ void add_to_list(AddressBook **list, AddressBook *address);
 void load_addresses(FILE *file, AddressBook **list);
 void print_list(AddressBook *list);
 void delete_list(AddressBook **list);
-void insert_to_list(AddressBook **list, AddressBook *address, int *index);
+void insert_to_list(AddressBook **list, AddressBook *address, const int *index);
 int list_length(AddressBook *list);
-void delete_address(AddressBook **list, int *index);
-AddressBook *find_address_by_index(AddressBook **list, int *index);
-AddressBook *find_address_by_name(AddressBook **list, char *name);
-AddressBook *find_address_by_surname(AddressBook **list, char *surname);
-AddressBook *find_address_by_email(AddressBook **list, char *email);
-AddressBook *find_address_by_phone_number(AddressBook **list, char *number);
+void delete_address(AddressBook **list, const int *index);
+AddressBook *find_address_by_index(AddressBook **list, const int *index);
+AddressBook *find_address_by_name(AddressBook **list, const char *name);
+AddressBook *find_address_by_surname(AddressBook **list, const char *surname);
+AddressBook *find_address_by_email(AddressBook **list, const char *email);
+AddressBook *find_address_by_phone_number(AddressBook **list, const char *number);
 
 #endif
