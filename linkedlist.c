@@ -65,9 +65,11 @@ void load_addresses(FILE *file, AddressBook **list)
 void print_list(AddressBook *list)
 {
 	AddressBook *temp = list;
+	int i = 1;
 	while (temp != NULL) {
-		printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
+		printf("[%d] %s %s %s %s\n",i ,temp->name, temp->surname, temp->email, temp->number);
 		temp = temp->next;
+		i++;
 	}
 }
 
@@ -135,7 +137,7 @@ void delete_address(AddressBook **list, int *index) {
 	}
 }
 
-AddressBook *find_address(AddressBook **list, int *index)
+AddressBook *find_address_by_index(AddressBook **list, int *index)
 {
 	AddressBook *temp = *list;
 	for (int i = 1; i < *index; i++) {
@@ -147,6 +149,55 @@ AddressBook *find_address(AddressBook **list, int *index)
 	printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
 
 }
+
+AddressBook *find_address_by_name(AddressBook **list, char *name)
+{
+	AddressBook *temp = *list;
+	while (temp != NULL) {
+		if (strcmp(name, temp->name) == 0) {
+			return temp;
+		}
+		temp = temp->next;
+	}
+	return NULL;
+}
+
+AddressBook *find_address_by_surname(AddressBook **list, char *surname)
+{
+	AddressBook *temp = *list;
+        while (temp != NULL) {
+                if (strcmp(surname, temp->surname) == 0) {
+                        return temp;
+                }
+                temp = temp->next;
+        }
+        return NULL;
+}
+
+AddressBook *find_address_by_email(AddressBook **list, char *email)
+{
+	AddressBook *temp = *list;
+        while (temp != NULL) {
+                if (strcmp(email, temp->email) == 0) {
+                        return temp;
+                }
+                temp = temp->next;
+        }
+        return NULL;
+}
+
+AddressBook *find_address_by_phone_number(AddressBook **list, char *number)
+{
+        AddressBook *temp = *list;
+        while (temp != NULL) {
+                if (strcmp(number, temp->number) == 0) {
+                        return temp;
+                }
+                temp = temp->next;
+        }
+        return NULL;
+}
+
 
 int list_length(AddressBook *list)
 {

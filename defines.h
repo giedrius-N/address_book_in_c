@@ -19,6 +19,10 @@ void delete_list(AddressBook **list);
 void insert_to_list(AddressBook **list, AddressBook *address, int *index);
 int list_length(AddressBook *list);
 void delete_address(AddressBook **list, int *index);
-AddressBook *find_address(AddressBook **list, int *index);
+AddressBook *find_address_by_index(AddressBook **list, int *index);
+AddressBook *find_address_by_name(AddressBook **list, char *name);
+AddressBook *find_address_by_surname(AddressBook **list, char *surname);
+AddressBook *find_address_by_email(AddressBook **list, char *email);
+AddressBook *find_address_by_phone_number(AddressBook **list, char *number);
 
 #endif
