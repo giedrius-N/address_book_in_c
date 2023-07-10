@@ -65,6 +65,9 @@ void load_addresses(FILE *file, AddressBook **list)
 void print_list(AddressBook *list)
 {
 	AddressBook *temp = list;
+
+//	if (temp == NULL) return;
+	
 	int i = 1;
 	while (temp != NULL) {
 		printf("[%d] %s %s %s %s\n",i ,temp->name, temp->surname, temp->email, temp->number);

@@ -3,7 +3,7 @@
 #include "linkedlist.c"
 #include "defines.h"
 
-void add_new_address_to_address_book(AddressBook *list);
+void add_new_address_to_address_book(AddressBook **list);
 void insert_new_address(AddressBook *list);
 void delete_address_by_position(AddressBook **list);
 void find_address_by_position(AddressBook *list);
@@ -13,17 +13,19 @@ int main(void)
 {
 	char address_file_path[30];
 	strcpy(address_file_path, getenv("HOME"));
-	strcat(address_file_path, "/addresses.csv");
+	strcat(address_file_path, "/aaddresses.csv");
 	AddressBook *list = NULL;
 	FILE *address_file = NULL;
 	
 	address_file = fopen(address_file_path, "r");
 
 	if (address_file == NULL) {
-		printf("File not found");
+		printf("File not found\n");
 	}
-
-	load_addresses(address_file, &list);	
+	else {
+		load_addresses(address_file, &list);	
+		fclose(address_file);
+	}
 	
 	char input[50];
 
@@ -56,7 +58,7 @@ int main(void)
 				print_list(list);
 				break;
 			case '2':
-				add_new_address_to_address_book(list);
+				add_new_address_to_address_book(&list);
 				break;
 			case '3':
 				insert_new_address(list);
@@ -76,13 +78,12 @@ int main(void)
 			default:
 				printf("\nInvalid selection!\n");
 				break;
-
 		}
 	}		
-
+	
 	return 0;
 }
-
+/*
 void add_new_address_to_address_book(AddressBook *list)
 {
 	printf("Add new address, information should be in one line and separated by , [name,surname,email,number] :\n");
@@ -92,6 +93,22 @@ void add_new_address_to_address_book(AddressBook *list)
         AddressBook *new_address = create_address_node(new_line);       
         add_to_list(&list, new_address);
 
+}
+*/
+void add_new_address_to_address_book(AddressBook **list)
+{
+	printf("Add new address, information should be in one line and separated by commas [name,surname,email,number]:\n");
+    char new_line[50];
+    scanf(" %[^\n]%*c", new_line);
+        
+    AddressBook *new_address = create_address_node(new_line);
+    if (new_address != NULL) {
+        add_to_list(list, new_address);
+        printf("Address added successfully.\n");
+    }
+    else {
+        printf("Failed to create the address.\n");
+    }
 }
 
 void insert_new_address(AddressBook *list)
