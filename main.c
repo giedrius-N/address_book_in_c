@@ -1,16 +1,23 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "linkedlist.c"
+#include <signal.h>
+#include <unistd.h>
 #include "defines.h"
 
+void sig_handler(int signum);
 void add_new_address_to_address_book(AddressBook **list);
-void insert_new_address(AddressBook *list);
+void insert_new_address(AddressBook **list);
 void delete_address_by_position(AddressBook **list);
 void find_address_by_position(AddressBook *list);
 void search_by_criteria(AddressBook *list);
 
+volatile sig_atomic_t g_signal_flag = 0;
+
 int main(void) 
 {
+	signal(SIGINT,sig_handler);
+	signal(SIGQUIT,sig_handler);
 	char address_file_path[30];
 	strcpy(address_file_path, getenv("HOME"));
 	strcat(address_file_path, "/addresses.csv");
@@ -29,7 +36,7 @@ int main(void)
 	
 	char input[50];
 	char control = ' ';
-	while (control != '0') {
+	while (control != '0' && !g_signal_flag) {
 		printf("\nChoose function: \n");
 		printf("[1] Display all records\n");
 		printf("[2] Add new address\n");
@@ -60,7 +67,7 @@ int main(void)
 				add_new_address_to_address_book(&list);
 				break;
 			case '3':
-				insert_new_address(list);
+				insert_new_address(&list);
 				break;
 			case '4':
 				delete_address_by_position(&list);
@@ -79,7 +86,9 @@ int main(void)
 				break;
 		}
 	}		
-	
+
+	delete_list(&list);
+
 	return 0;
 }
 
@@ -99,7 +108,7 @@ void add_new_address_to_address_book(AddressBook **list)
     }
 }
 
-void insert_new_address(AddressBook *list)
+void insert_new_address(AddressBook **list)
 {
 	char insert_line[50];
         printf("Insert new address in desired place\n");
@@ -111,7 +120,7 @@ void insert_new_address(AddressBook *list)
 
         AddressBook *new_address_to_insert = create_address_node(insert_line);
 
-        insert_to_list(&list, new_address_to_insert, &place_to_insert);
+        insert_to_list(list, new_address_to_insert, &place_to_insert);
 
 }
 
@@ -153,7 +162,14 @@ void search_by_criteria(AddressBook *list)
 			scanf(" %14[^\n]%*c", name);
 			AddressBook *found_by_name = find_address_by_name(&list, name);
 			if (found_by_name != NULL) {
-			printf("Found address: %s %s %s %s\n", found_by_name->name, found_by_name->surname, found_by_name->email, found_by_name->number);
+				
+			printf("\nFound: \n");
+				while (found_by_name != NULL) {
+					AddressBook *to_delete = found_by_name;
+					printf("%s %s %s %s\n", found_by_name->name, found_by_name->surname, found_by_name->email, found_by_name->number);
+					found_by_name = found_by_name->next;
+					free(to_delete);
+				}
 			}
 			else {
 				printf("Address could not be found!\n");
@@ -166,6 +182,12 @@ void search_by_criteria(AddressBook *list)
 			AddressBook *found_by_surname = find_address_by_surname(&list, surname);
 			if (found_by_surname != NULL) {
                         printf("Found address: %s %s %s %s\n", found_by_surname->name, found_by_surname->surname, found_by_surname->email, found_by_surname->number);
+                        	while (found_by_surname != NULL) {
+                        		AddressBook *to_delete = found_by_surname;
+					printf("%s %s %s %s\n", found_by_surname->name, found_by_surname->surname, found_by_surname->email, found_by_name->number);
+					found_by_surname = found_by_surname->next;
+					free(to_delete);
+                        	}
                         }
                         else {
                                 printf("Address could not be found!\n");
@@ -200,4 +222,9 @@ void search_by_criteria(AddressBook *list)
 		default:
 			printf("Invalid search type\n");
 	}
+}
+
+void sig_handler(int signum)
+{
+	g_signal_flag = 1;
 }

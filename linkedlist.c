@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 #include "defines.h"
 
 AddressBook *create_node(char *name, char *surname, char *email, char *number)
@@ -102,6 +102,7 @@ void insert_to_list(AddressBook **list, AddressBook *address, const int *index)
 			temp = temp->next;
 		}
 		temp->next = address;
+		return;
 	}
 	else {	
 		for (int i = 1; i < *index - 1; i++) {
@@ -161,17 +162,32 @@ AddressBook *find_address_by_index(AddressBook **list, const int *index)
 AddressBook *find_address_by_name(AddressBook **list, const char *name)
 {
 	AddressBook *temp = *list;
+	AddressBook *result = NULL;
 	while (temp != NULL) {
 		if (strcmp(name, temp->name) == 0) {
-			return temp;
+			AddressBook* newAddress = (AddressBook*)malloc(sizeof(AddressBook));
+			strcpy(newAddress->name, temp->name);
+			strcpy(newAddress->surname, temp->surname);
+			strcpy(newAddress->email, temp->email);
+			strcpy(newAddress->number, temp->number);
+			newAddress->next = NULL;
+			
+			if (result == NULL) {
+				result = newAddress;
+			} 
+			else {
+				result->next = newAddress;
+			}
 		}
 		temp = temp->next;
 	}
-	return NULL;
+	
+	return result;
 }
 
 AddressBook *find_address_by_surname(AddressBook **list, const char *surname)
 {
+/*
 	AddressBook *temp = *list;
         while (temp != NULL) {
                 if (strcmp(surname, temp->surname) == 0) {
@@ -179,7 +195,29 @@ AddressBook *find_address_by_surname(AddressBook **list, const char *surname)
                 }
                 temp = temp->next;
         }
-        return NULL;
+        return NULL;*/
+        AddressBook *temp = *list;
+	AddressBook *result = NULL;
+	while (temp != NULL) {
+		if (strcmp(surname, temp->surname) == 0) {
+			AddressBook* newAddress = (AddressBook*)malloc(sizeof(AddressBook));
+			strcpy(newAddress->name, temp->name);
+			strcpy(newAddress->surname, temp->surname);
+			strcpy(newAddress->email, temp->email);
+			strcpy(newAddress->number, temp->number);
+			newAddress->next = NULL;
+			
+			if (result == NULL) {
+				result = newAddress;
+			} 
+			else {
+				result->next = newAddress;
+			}
+		}
+		temp = temp->next;
+	}
+	
+	return result;
 }
 
 AddressBook *find_address_by_email(AddressBook **list, const char *email)

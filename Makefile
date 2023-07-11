@@ -1,15 +1,15 @@
-MAIN := main.c
-BINS := $(MAIN:.c=)
-OBJS := $(MAIN:.c=.o)
+BIN := address_book
+SRCS := $(wildcard *.c)
+OBJS := $(SRCS:.c=.o)
 
 .PHONY: all clean
 
-all: $(BINS)
+all: $(BIN)
 
-$(BINS): %: %.o
+$(BIN): $(OBJS)
 	$(CC) -o $@ $^
-$(OBJS): %.o: %.c
+%.o: %.c
 	$(CC) -c -o $@ $^
 
 clean:
-	$(RM) $(BINS) $(OBJS)
+	$(RM) $(BIN) $(OBJS)
