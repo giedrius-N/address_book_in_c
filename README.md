@@ -32,13 +32,13 @@ All of your code must be stored in a github repository. Also, you can use other 
 
 addresses.csv data fragment:
 
-Name01,Surname,Email@1,37060000000,
+Name01,Surname,Email@1,37060000000,<br />
 Name02,Surname,Email@2,37060000001,
-Name03,Surname,Email@3,37060000002,
+Name03,Surname,Email@3,37060000002,<br />
 Name04,Surname,Email@4,37060000003,
-Name05,Surname,Email@5,37060000004,
+Name05,Surname,Email@5,37060000004,<br />
 Name06,Surname,Email@6,37060000005,
-Name07,Surname,Email@7,37060000006,
+Name07,Surname,Email@7,37060000006,<br />
 Name08,Surname,Email@8,37060000007,
-Name09,Surname,Email@9,37060000008,
+Name09,Surname,Email@9,37060000008,<br />
 Name10,Surname,Email@0,37000000009,
