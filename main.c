@@ -165,10 +165,10 @@ void search_by_criteria(AddressBook *list)
 				
 			printf("\nFound: \n");
 				while (found_by_name != NULL) {
-					AddressBook *to_delete = found_by_name;
-					printf("%s %s %s %s\n", found_by_name->name, found_by_name->surname, found_by_name->email, found_by_name->number);
+					AddressBook *temp = found_by_name;
+					printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
 					found_by_name = found_by_name->next;
-					free(to_delete);
+					free(temp);
 				}
 			}
 			else {
@@ -177,21 +177,23 @@ void search_by_criteria(AddressBook *list)
 			break;
 		case 2:
 			printf("Enter Surname:\n");
+			
 			char surname[15];
                         scanf(" %14[^\n]%*c", surname);
 			AddressBook *found_by_surname = find_address_by_surname(&list, surname);
 			if (found_by_surname != NULL) {
-                        printf("Found address: %s %s %s %s\n", found_by_surname->name, found_by_surname->surname, found_by_surname->email, found_by_surname->number);
-                        	while (found_by_surname != NULL) {
-                        		AddressBook *to_delete = found_by_surname;
-					printf("%s %s %s %s\n", found_by_surname->name, found_by_surname->surname, found_by_surname->email, found_by_name->number);
+				
+			printf("\nFound: \n");
+				while (found_by_surname != NULL) {
+					AddressBook *temp = found_by_surname;
+					printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
 					found_by_surname = found_by_surname->next;
-					free(to_delete);
-                        	}
-                        }
-                        else {
-                                printf("Address could not be found!\n");
-                        }
+					free(temp);
+				}
+			}
+			else {
+				printf("Address could not be found!\n");
+			}
 			break;
 		case 3:
 			printf("Enter Email:\n");
@@ -199,11 +201,18 @@ void search_by_criteria(AddressBook *list)
                         scanf(" %19[^\n]%*c", email);
 			AddressBook *found_by_email = find_address_by_email(&list, email);
                         if (found_by_email != NULL) {
-                        printf("Found address: %s %s %s %s\n", found_by_email->name, found_by_email->surname, found_by_email->email, found_by_email->number);
-                        }
-                        else {
-                                printf("Address could not be found!\n");
-                        }
+				
+			printf("\nFound: \n");
+				while (found_by_email != NULL) {
+					AddressBook *temp = found_by_email;
+					printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
+					found_by_email = found_by_email->next;
+					free(temp);
+				}
+			}
+			else {
+				printf("Address could not be found!\n");
+			}
 
 			break;
 		case 4:
@@ -212,11 +221,18 @@ void search_by_criteria(AddressBook *list)
 			scanf(" %14[^\n]%*c", phNumber);
 			AddressBook *found_by_number = find_address_by_phone_number(&list, phNumber);
                         if (found_by_number != NULL) {
-                        printf("Found address: %s %s %s %s\n", found_by_number->name, found_by_number->surname, found_by_number->email, found_by_number->number);
-                        }
-                        else {
-                                printf("Address could not be found!\n");
-                        }
+				
+			printf("\nFound: \n");
+				while (found_by_number != NULL) {
+					AddressBook *temp = found_by_number;
+					printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
+					found_by_number = found_by_number->next;
+					free(temp);
+				}
+			}
+			else {
+				printf("Address could not be found!\n");
+			}
 
 			break;
 		default:

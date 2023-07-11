@@ -15,6 +15,7 @@ extern AddressBook *create_node(char *name, char *surname, char *email, char *nu
 extern void add_to_list(AddressBook **list, AddressBook *address);
 extern void load_addresses(FILE *file, AddressBook **list);
 extern void print_list(AddressBook *list);
+extern void print_node(AddressBook *node, int *i);
 extern void delete_list(AddressBook **list);
 extern void insert_to_list(AddressBook **list, AddressBook *address, const int *index);
 extern int list_length(AddressBook *list);

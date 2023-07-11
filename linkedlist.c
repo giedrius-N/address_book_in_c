@@ -24,9 +24,13 @@ AddressBook *create_address_node(char *line)
 	char *name, *surname, *email, *number;
 
 	name = strtok(line, ",");
+	if (name == NULL) return NULL;
 	surname = strtok(NULL, ",");
+	if (surname == NULL) return NULL;
 	email = strtok(NULL, ",");
+	if (email == NULL) return NULL;
 	number = strtok(NULL, ",");
+	if (number == NULL) return NULL;
 
 	address = create_node(name, surname, email, number);
 
@@ -73,10 +77,16 @@ void print_list(AddressBook *list)
 
 	int i = 1;
 	while (temp != NULL) {
-		printf("[%d] %s %s %s %s\n",i ,temp->name, temp->surname, temp->email, temp->number);
+//		printf("[%d] %s %s %s %s\n",i ,temp->name, temp->surname, temp->email, temp->number);
+		print_node(temp, &i);
 		temp = temp->next;
 		i++;
 	}
+}
+
+void print_node(AddressBook *node, int *i)
+{
+	printf("[%d] %s %s %s %s\n", *i, node->name, node->surname, node->email, node->number);
 }
 
 void delete_list(AddressBook **list)
@@ -187,15 +197,6 @@ AddressBook *find_address_by_name(AddressBook **list, const char *name)
 
 AddressBook *find_address_by_surname(AddressBook **list, const char *surname)
 {
-/*
-	AddressBook *temp = *list;
-        while (temp != NULL) {
-                if (strcmp(surname, temp->surname) == 0) {
-                        return temp;
-                }
-                temp = temp->next;
-        }
-        return NULL;*/
         AddressBook *temp = *list;
 	AddressBook *result = NULL;
 	while (temp != NULL) {
@@ -218,30 +219,59 @@ AddressBook *find_address_by_surname(AddressBook **list, const char *surname)
 	}
 	
 	return result;
+
 }
 
 AddressBook *find_address_by_email(AddressBook **list, const char *email)
 {
 	AddressBook *temp = *list;
-        while (temp != NULL) {
-                if (strcmp(email, temp->email) == 0) {
-                        return temp;
-                }
-                temp = temp->next;
-        }
-        return NULL;
+	AddressBook *result = NULL;
+	while (temp != NULL) {
+		if (strcmp(email, temp->email) == 0) {
+			AddressBook* newAddress = (AddressBook*)malloc(sizeof(AddressBook));
+			strcpy(newAddress->name, temp->name);
+			strcpy(newAddress->surname, temp->surname);
+			strcpy(newAddress->email, temp->email);
+			strcpy(newAddress->number, temp->number);
+			newAddress->next = NULL;
+			
+			if (result == NULL) {
+				result = newAddress;
+			} 
+			else {
+				result->next = newAddress;
+			}
+		}
+		temp = temp->next;
+	}
+	
+	return result;
 }
 
 AddressBook *find_address_by_phone_number(AddressBook **list, const char *number)
 {
         AddressBook *temp = *list;
-        while (temp != NULL) {
-                if (strcmp(number, temp->number) == 0) {
-                        return temp;
-                }
-                temp = temp->next;
-        }
-        return NULL;
+	AddressBook *result = NULL;
+	while (temp != NULL) {
+		if (strcmp(number, temp->number) == 0) {
+			AddressBook* newAddress = (AddressBook*)malloc(sizeof(AddressBook));
+			strcpy(newAddress->name, temp->name);
+			strcpy(newAddress->surname, temp->surname);
+			strcpy(newAddress->email, temp->email);
+			strcpy(newAddress->number, temp->number);
+			newAddress->next = NULL;
+			
+			if (result == NULL) {
+				result = newAddress;
+			} 
+			else {
+				result->next = newAddress;
+			}
+		}
+		temp = temp->next;
+	}
+	
+	return result;
 }
 
 
