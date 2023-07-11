@@ -28,7 +28,6 @@ int main(void)
 	}
 	
 	char input[50];
-
 	char control = ' ';
 	while (control != '0') {
 		printf("\nChoose function: \n");
@@ -47,12 +46,12 @@ int main(void)
 			printf("\nInvalid selection!\n");
         		continue;
 		}
-
 		control = input[0];
 
 		switch (control)
 		{
 			case '0':
+				delete_list(&list);
 				break;
 			case '1':
 				print_list(list);
