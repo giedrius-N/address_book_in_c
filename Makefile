@@ -1,15 +1,13 @@
-BIN := address_book
-SRCS := $(wildcard *.c)
-OBJS := $(SRCS:.c=.o)
+.PHONY: all clean run
 
-.PHONY: all clean
-
-all: $(BIN)
-
-$(BIN): $(OBJS)
-	$(CC) -o $@ $^
-%.o: %.c
-	$(CC) -c -o $@ $^
+all:
+	make -C lib
+	make -C src
 
 clean:
-	$(RM) $(BIN) $(OBJS)
+	make -C lib clean
+	make -C src clean
+	$(RM) myprogram
+
+run:
+	export LD_LIBRARY_PATH="./lib:$$LD_LIBRARY_PATH" && ./src/myprogram

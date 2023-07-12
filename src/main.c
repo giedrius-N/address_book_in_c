@@ -4,11 +4,12 @@
 #include <signal.h>
 #include <unistd.h>
 #include "defines.h"
+#include "helpers_defines.h"
 
-volatile sig_atomic_t g_signal_flag = 0;
-void sig_handler(int signum)
+volatile sig_atomic_t g_signal_flag = 1;
+void sig_handler()
 {
-	g_signal_flag = 1;
+	g_signal_flag = 0;
 }
 
 int main(void) 
@@ -33,7 +34,7 @@ int main(void)
 	
 	char input[50];
 	char control = ' ';
-	while (control != '0' && !g_signal_flag) {
+	while (g_signal_flag) {
 	
 		print_controls();
 
@@ -48,7 +49,7 @@ int main(void)
 		switch (control)
 		{
 			case '0':
-				delete_list(&list);
+				g_signal_flag = 0;
 				break;
 			case '1':
 				print_list(list);

@@ -26,11 +26,4 @@ extern AddressBook *find_address_by_surname(AddressBook **list, const char *surn
 extern AddressBook *find_address_by_email(AddressBook **list, const char *email);
 extern AddressBook *find_address_by_phone_number(AddressBook **list, const char *number);
 
-extern void print_controls();
-extern void add_new_address_to_address_book(AddressBook **list);
-extern void insert_new_address(AddressBook **list);
-extern void delete_address_by_position(AddressBook **list);
-extern void find_address_by_position(AddressBook *list);
-extern void search_by_criteria(AddressBook *list);
-
 #endif

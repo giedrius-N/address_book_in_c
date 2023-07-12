@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "defines.h"
+#include "helpers_defines.h"
 
 void print_controls() {
 	printf("\nChoose function: \n");
