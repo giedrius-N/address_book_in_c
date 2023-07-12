@@ -77,7 +77,6 @@ void print_list(AddressBook *list)
 
 	int i = 1;
 	while (temp != NULL) {
-//		printf("[%d] %s %s %s %s\n",i ,temp->name, temp->surname, temp->email, temp->number);
 		print_node(temp, &i);
 		temp = temp->next;
 		i++;
@@ -90,7 +89,11 @@ void print_node(AddressBook *node, int *i)
 }
 
 void delete_list(AddressBook **list)
-{
+{	
+	if (*list == NULL) {
+		printf("\nList is already empty!\n");
+		return;
+	}
 	AddressBook *delete = *list;
 	while (*list != NULL) {
 		*list = (*(list))->next;
@@ -123,37 +126,24 @@ void insert_to_list(AddressBook **list, AddressBook *address, const int *index)
 	}
 }
 
-void delete_address(AddressBook **list, const int *index) {
-    AddressBook *temp = *list;
-    if (!(*index > 0 && *index <= list_length(*list))) {
-        return;
-    }
-    if (*index == 1) {
-        AddressBook *toDelete = *list;
-        *list = (*list)->next;
-        free(toDelete);
-        return;
-    }
-    else if (*index > 1 && *index < list_length(*list)) {
-        for (int i = 1; i < *index - 1; i++) {
-            if (temp->next != NULL) {
-                temp = temp->next;
-            }
-        }
-        AddressBook *toDelete = temp->next;
-        temp->next = temp->next->next;
-        free(toDelete);
-        return;
-    }
-    else if (*index == list_length(*list)) {
-        while (temp->next->next != NULL) {
-            temp = temp->next;
-        }
-        AddressBook *toDelete = temp->next;
-        temp->next = NULL;
-        free(toDelete);
-        return;
-    }
+void delete_addr_at_pos(AddressBook **list, const int *index) {
+    	AddressBook *prev = *list;
+    	AddressBook *temp = *list;
+    	int i = 1;
+    	if (*list == NULL) {
+    		return;
+    	}
+    	while (temp != NULL) {
+    		if (*index == i) {
+    			prev->next = temp->next;
+    			free(temp);
+    			break;
+    		}
+    		prev = temp;
+    		temp = temp->next;
+    		i++;
+    	}
+    	return;
 }
 
 AddressBook *find_address_by_index(AddressBook **list, const int *index)
@@ -164,9 +154,6 @@ AddressBook *find_address_by_index(AddressBook **list, const int *index)
 	}
 	AddressBook *address = temp;
 	return address;
-
-	printf("%s %s %s %s\n", temp->name, temp->surname, temp->email, temp->number);
-
 }
 
 AddressBook *find_address_by_name(AddressBook **list, const char *name)
@@ -184,9 +171,13 @@ AddressBook *find_address_by_name(AddressBook **list, const char *name)
 			
 			if (result == NULL) {
 				result = newAddress;
-			} 
+			}
 			else {
-				result->next = newAddress;
+				AddressBook *current = result;
+				while (current->next != NULL) {
+					current = current->next;
+				}
+				current->next = newAddress;
 			}
 		}
 		temp = temp->next;
@@ -210,10 +201,16 @@ AddressBook *find_address_by_surname(AddressBook **list, const char *surname)
 			
 			if (result == NULL) {
 				result = newAddress;
-			} 
-			else {
-				result->next = newAddress;
 			}
+			else {
+				AddressBook *current = result;
+				while (current->next != NULL) {
+					current = current->next;
+				}
+				current->next = newAddress;
+			}
+
+			
 		}
 		temp = temp->next;
 	}
@@ -237,9 +234,13 @@ AddressBook *find_address_by_email(AddressBook **list, const char *email)
 			
 			if (result == NULL) {
 				result = newAddress;
-			} 
+			}
 			else {
-				result->next = newAddress;
+				AddressBook *current = result;
+				while (current->next != NULL) {
+					current = current->next;
+				}
+				current->next = newAddress;
 			}
 		}
 		temp = temp->next;
@@ -263,9 +264,13 @@ AddressBook *find_address_by_phone_number(AddressBook **list, const char *number
 			
 			if (result == NULL) {
 				result = newAddress;
-			} 
+			}
 			else {
-				result->next = newAddress;
+				AddressBook *current = result;
+				while (current->next != NULL) {
+					current = current->next;
+				}
+				current->next = newAddress;
 			}
 		}
 		temp = temp->next;
