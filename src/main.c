@@ -3,8 +3,8 @@
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
-#include "defines.h"
-#include "helpers_defines.h"
+#include "linkedlist.h"
+#include "helpers.h"
 
 volatile sig_atomic_t g_signal_flag = 1;
 void sig_handler()

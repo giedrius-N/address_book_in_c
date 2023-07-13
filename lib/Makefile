@@ -9,4 +9,4 @@ linkedlist.o: linkedlist.c
 	$(CC) -c -fPIC -I../lib linkedlist.c -o linkedlist.o
 	
 clean:
-	$(RM) *.o liblinkedlist.so
+	$(RM) *.o *.so

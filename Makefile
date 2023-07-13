@@ -1,4 +1,4 @@
-.PHONY: all clean run
+.PHONY: all clean
 
 all:
 	make -C lib
@@ -7,7 +7,3 @@ all:
 clean:
 	make -C lib clean
 	make -C src clean
-	$(RM) myprogram
-
-run:
-	export LD_LIBRARY_PATH="./lib:$$LD_LIBRARY_PATH" && ./src/myprogram
