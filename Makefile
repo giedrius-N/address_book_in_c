@@ -1,7 +1,11 @@
-.PHONY: all clean
+.PHONY: clean all src lib
 
-all:
+all: lib src
+
+lib:
 	make -C lib
+
+src:
 	make -C src
 
 clean:
